@@ -1,0 +1,21 @@
+version: "3.6"
+
+services:
+  kernel-manager:
+    container_name: kernel-manager-container
+    image: melda/kernel-manager
+    build: .
+    depends_on:
+      - redis
+    ports:
+      - "3001:3001"
+    environment:
+      - REDIS_HOST=redis-container
+
+  redis:
+    container_name: redis-container
+    image: redis
+    volumes:
+      - ~/redis-data:/data
+    ports:
+      - "6379:6379"
